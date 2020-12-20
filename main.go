@@ -17,9 +17,13 @@ func main() {
 	port := helpers.GetENV("PORT")
 
 	router := mux.NewRouter()
-	router.HandleFunc("/users", controllers.HandleAllUsers).Methods("GET")
+	
+	router.HandleFunc("/user", controllers.HandleAllUsers).Methods("GET")
+	router.HandleFunc("/user/store", controllers.HandleCreateUser).Methods("POST")
+	router.HandleFunc("/login", controllers.HandleLogin).Methods("POST")
+
 	http.Handle("/", router)
-	fmt.Printf("Connected to port %s", port)
+	fmt.Println("Connected to port", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 
 }
